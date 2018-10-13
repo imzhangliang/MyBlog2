@@ -28,6 +28,7 @@ fs
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
+    db[modelName].sync();   //对于没有创建表的model创建表
   }
 });
 
