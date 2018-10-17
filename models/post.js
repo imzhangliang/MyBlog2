@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     cateId: { //文章分类ID
       type: DataTypes.INTEGER,
-      allowNull: false
     },
     content: { //内容
       type: DataTypes.TEXT,
@@ -20,49 +19,51 @@ module.exports = (sequelize, DataTypes) => {
     },
 
   }, {});
-  
+
   Post.associate = function (models) {
     // associations can be defined here
   };
 
   Post.addPost = function(model) {
-    Post.create(model).then(function(obj){
+    return Post.create(model).then(function(obj){
       return obj;
+    }).catch(function(err){
+      return null;
     });
   }
 
   Post.editPost = function(model) {
-    Post.update(model, {
+    return Post.update(model, {
       where: {
         id:model.id
       }
     }).then(function(res) {
-      return res;
+      return res[0];
     });
   }
 
   Post.updatePost = function(model) {
     if (model.id) {
-      Post.editPost(model);
+      return Post.editPost(model);
     } else {
-      Post.addPost(model);
+      return Post.addPost(model);
     }
   }
 
   Post.getPost = function(id) {
-    Post.findOne({where:{id:id}}).then(function(obj){
+    return Post.findOne({where:{id:id}}).then(function(obj){
       return obj;
     });
   }
 
   Post.deletePost = function(id) {
-    Post.destroy({where:{id:id}, limit:1}).then(function(num) {
+    return Post.destroy({where:{id:id}, limit:1}).then(function(num) {
       return num;
     });
   }
 
   Post.postList = function(where, offset, limit) {
-    Post.findAll({
+    return Post.findAll({
       where: where,
       limit: limit,
       offset: offset
