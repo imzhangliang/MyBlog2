@@ -61,11 +61,14 @@ function baseModel(ModelClass) {
         })
     }
 
-    ModelClass.searchListByPage = function (where, pageNum, pageSize) {
-        let offset = (pageNum - 1) * pageNum;
-        let limit = pageSize;
-
-        return ModelClass.searchList(where, offset, limit);
+    ModelClass.searchListAndCount = function (where, offset, limit) {
+        return ModelClass.findAndCount({
+            where: where,
+            limit: limit,
+            offset: offset
+        }).then(function (result) {
+            return result;
+        })
     }
 }
 

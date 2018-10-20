@@ -27,7 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
+  //继承基类的一些方法
   baseModel(Post);
+
 
   return Post;
 };
