@@ -1,35 +1,31 @@
 'use strict';
-
-const baseModel = require('./base/baseModel');
-
 // ****** 文章实体 ******
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('post', {
     title: { //文章标题
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, 
       allowNull: false
     },
     date: { //文章发表日期
-      type: DataTypes.DATE,
+      type: DataTypes.DATE, 
       allowNull: false
     },
     cateId: { //文章分类ID
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER, 
+      allowNull: true
     },
     content: { //内容
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT, 
       allowNull: false
     },
-
+    
   }, {});
-
-  Post.associate = function (models) {
+  Post.associate = function(models) {
     // associations can be defined here
   };
 
   //继承基类的一些方法
   baseModel(Post);
-
 
   return Post;
 };

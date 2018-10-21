@@ -1,5 +1,5 @@
 'use strict';
-//本模块放置的是文章（post)的api方法
+//本模块放置的是文章(post)的api方法
 
 var express = require('express');
 var router = express.Router();
