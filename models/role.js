@@ -1,4 +1,6 @@
 'use strict';
+const baseModel = require('./base/baseModel');  //基类模型用于继承
+
 // ****** 角色实体 ******
 module.exports = (sequelize, DataTypes) => {
   const Role = sequelize.define('role', {
@@ -13,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   //继承基类的一些方法
-  baseModel(Post);
+  baseModel(Role);
 
   return Role;
 };

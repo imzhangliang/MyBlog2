@@ -15,7 +15,7 @@ router.get('/:id', function(req, res, next){
 });
 
 //新增文章分类
-router.category('/addCategory', function(req, res, next){
+router.post('/addCategory', function(req, res, next){
     Category.add(req.body).then(function(category){
         if (category) {
             res.jsonp({status: 0, message: '新增文章分类成功', data:category})
@@ -26,7 +26,7 @@ router.category('/addCategory', function(req, res, next){
 })
 
 //编辑文章分类
-router.category('/editCategory', function(req, res, next){
+router.post('/editCategory', function(req, res, next){
     Category.edit(req.body).then(function(editNum){
         if (editNum > 0) {
             res.jsonp({status: 0, message: '编辑文章分类成功', data:editNum})
@@ -37,7 +37,7 @@ router.category('/editCategory', function(req, res, next){
 })
 
 //删除文章分类
-router.category('/deleteCategory/:id', function(req, res, next){
+router.post('/deleteCategory/:id', function(req, res, next){
     Category.delete(req.params.id).then(function(deleteNum){
         if (deleteNum > 0) {
             res.jsonp({status: 0, message: '删除文章分类成功', data:deleteNum})
@@ -48,7 +48,7 @@ router.category('/deleteCategory/:id', function(req, res, next){
 })
 
 //获取文章分类分页列表
-router.category('/categoryList', function(req, res, next){
+router.post('/categoryList', function(req, res, next){
     let {id} = req.body;    //因为find中where不允许多余的字段，所以先过滤一下
     Category.searchListAndCount({id}, 0, 2).then(function(result){
         res.jsonp({status: 0, message: '获取文章分类分页列表成功', total: result.count, data: result.rows})
