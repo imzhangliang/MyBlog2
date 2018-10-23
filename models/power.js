@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     
   }, {});
   Power.associate = function(models) {
-    // associations can be defined here
+    
   };
 
   //继承基类的一些方法

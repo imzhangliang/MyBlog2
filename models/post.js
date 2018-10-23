@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     
   }, {});
   Post.associate = function(models) {
-    // associations can be defined here
+    
+      Post.belongsTo(models.category);
+      
+      Post.belongsToMany(models.label, {through: 'postLabel'});
+      
   };
 
   //继承基类的一些方法

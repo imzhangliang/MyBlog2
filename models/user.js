@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    
+      
+      User.belongsToMany(models.role, {through: 'userRole'});
+      
   };
 
   //继承基类的一些方法
