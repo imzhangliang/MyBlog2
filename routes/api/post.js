@@ -10,7 +10,11 @@ const Post = models.post;
 //获取文章
 router.get('/:id', function(req, res, next){
     Post.get(req.params.id).then(function(post){
-        res.jsonp({status: 0, message: '获取文章成功', data:post});    
+        if (post) {
+            res.jsonp({status: 0, message: '获取文章成功', data:post});    
+        } else {
+            res.jsonp({status: 1, message: '获取文章失败', data:post});    
+        }
     })
 });
 

@@ -10,7 +10,11 @@ const Role = models.role;
 //获取角色
 router.get('/:id', function(req, res, next){
     Role.get(req.params.id).then(function(role){
-        res.jsonp({status: 0, message: '获取角色成功', data:role});    
+        if (role) {
+            res.jsonp({status: 0, message: '获取角色成功', data:role});    
+        } else {
+            res.jsonp({status: 1, message: '获取角色失败', data:role});    
+        }
     })
 });
 

@@ -10,7 +10,11 @@ const Label = models.label;
 //获取标签
 router.get('/:id', function(req, res, next){
     Label.get(req.params.id).then(function(label){
-        res.jsonp({status: 0, message: '获取标签成功', data:label});    
+        if (label) {
+            res.jsonp({status: 0, message: '获取标签成功', data:label});    
+        } else {
+            res.jsonp({status: 1, message: '获取标签失败', data:label});    
+        }
     })
 });
 

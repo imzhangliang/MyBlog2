@@ -10,7 +10,11 @@ const Power = models.power;
 //获取权限
 router.get('/:id', function(req, res, next){
     Power.get(req.params.id).then(function(power){
-        res.jsonp({status: 0, message: '获取权限成功', data:power});    
+        if (power) {
+            res.jsonp({status: 0, message: '获取权限成功', data:power});    
+        } else {
+            res.jsonp({status: 1, message: '获取权限失败', data:power});    
+        }
     })
 });
 

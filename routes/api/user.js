@@ -10,7 +10,11 @@ const User = models.user;
 //获取用户
 router.get('/:id', function(req, res, next){
     User.get(req.params.id).then(function(user){
-        res.jsonp({status: 0, message: '获取用户成功', data:user});    
+        if (user) {
+            res.jsonp({status: 0, message: '获取用户成功', data:user});    
+        } else {
+            res.jsonp({status: 1, message: '获取用户失败', data:user});    
+        }
     })
 });
 

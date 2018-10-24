@@ -10,7 +10,11 @@ const Category = models.category;
 //获取文章分类
 router.get('/:id', function(req, res, next){
     Category.get(req.params.id).then(function(category){
-        res.jsonp({status: 0, message: '获取文章分类成功', data:category});    
+        if (category) {
+            res.jsonp({status: 0, message: '获取文章分类成功', data:category});    
+        } else {
+            res.jsonp({status: 1, message: '获取文章分类失败', data:category});    
+        }
     })
 });
 
