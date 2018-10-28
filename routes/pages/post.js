@@ -5,8 +5,8 @@ var express = require('express');
 var router = express.Router();
 
 
-router.get('/ok', function(req, res, next) {
-    res.render('index', {title:'OK'});
+router.get('/show', function(req, res, next) {
+    res.render('post/show', {id: req.query.id});
 });
 
 module.exports = router;

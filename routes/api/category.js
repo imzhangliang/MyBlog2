@@ -51,12 +51,12 @@ router.post('/deleteCategory/:id', function(req, res, next){
     })
 })
 
-//获取文章分类分页列表
+//获取文章分类
 router.post('/categoryList', function(req, res, next){
-    let {id} = req.body;    //因为find中where不允许多余的字段，所以先过滤一下
-    Category.searchListAndCount({id}, 0, 2).then(function(result){
-        res.jsonp({status: 0, message: '获取文章分类分页列表成功', total: result.count, data: result.rows})
-    })
+    Category.searchList().then(function(data){
+        res.jsonp({status: 0, message: '获取文章分类成功', data: data})
+    });
+
 })
 
 
