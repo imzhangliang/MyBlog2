@@ -1,5 +1,22 @@
+
+//获取文章分类
+function getCates() {
+    let cateTemp = 
+    $.post('/api/category/categoryList',{}, function(result){
+        let html = '';
+
+        for (let i = 0; i < result.data.length; i++) {
+            let cate = result.data[i];
+            html += `<p><a href="#" title="${cate.name}" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> ${cate.name}（${cate.postCount}）</a></p>`
+        }
+
+        $("#category .content").html(html);
+    })
+}
+
 $(function(){
-    
+    getCates();
+
     let id = $("article.post").attr("id");
 
     console.log("sdfdf", id);

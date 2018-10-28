@@ -1,48 +1,30 @@
 
-function addPost() {
-    let postTemplate = `
-    <article id="id" class="post">
+function getPosts() {
 
-    <div class="post-head">
-        <h1 class="post-title"><a href="/ghost-1-0-rc1/">Ghost 1.0 RC1 发布，可用于生产环境</a></h1>
-        <div class="post-meta">
-            <span class="author">作者：<a href="/author/wangsai/">王赛</a></span> &bull;
-            <time class="post-date" datetime="2017年7月13日星期四中午12点12分" title="2017年7月13日星期四中午12点12分">2017年7月13日</time>
-        </div>
-    </div>
-    <div class="post-content">
-        <p>今天，我们正式发布了首个 Ghost 1.0 RC 版本，希望这是到达最终版本的最后一步。你可以通过 Ghost-CLI 安装此最新版本，并且可以使用到 生产环境中！！！如果你需要从 LTS (0.11) 版本迁移到 1.0 版本，请阅读迁移指南。 同时，下面列出从上一个 bet</p>
-    </div>
-    <div class="post-permalink">
-        <a href="/ghost-1-0-rc1/" class="btn btn-default">阅读全文</a>
-    </div>
+    $.ajax({
+            url: "/api/post/postList",
+            data:'{"offset": 0, "limit":10}',
+            contentType : 'application/json',
+            type : 'POST',
+            success:function(result){
+                console.log(result);
 
-    <footer class="post-footer clearfix">
-        <div class="pull-left tag-list">
-            <i class="fa fa-folder-open-o"></i>
-            
-        </div>
-        <div class="pull-right share">
-        </div>
-    </footer>
-</article>`;
-
-    $.get("/api/post/1", {}, function(result){
-        let $postObj = $(`
-        <article id="${result.data.id}" class="post">
+                for (let post of result.data) {
+                    let $postObj = $(`
+        <article id="${post.id}" class="post">
     
         <div class="post-head">
-            <h1 class="post-title"><a href="/post/show?id=${result.data.id}">${result.data.title}</a></h1>
+            <h1 class="post-title"><a href="/post/show?id=${post.id}">${post.title}</a></h1>
             <div class="post-meta">
                 <span class="author">作者：<a href="/author/wangsai/">王赛</a></span> &bull;
-                <time class="post-date" datetime="2017年7月13日星期四中午12点12分" title="2017年7月13日星期四中午12点12分">${result.data.date}</time>
+                <time class="post-date" datetime="2017年7月13日星期四中午12点12分" title="2017年7月13日星期四中午12点12分">${post.date}</time>
             </div>
         </div>
         <div class="post-content">
-            ${result.data.content}
+            ${post.content}
         </div>
         <div class="post-permalink">
-            <a href="/post/show?id=${result.data.id}" class="btn btn-default">阅读全文</a>
+            <a href="/post/show?id=${post.id}" class="btn btn-default">阅读全文</a>
         </div>
     
         <footer class="post-footer clearfix">
@@ -54,10 +36,44 @@ function addPost() {
             </div>
         </footer>
     </article>`);
-        console.log(result);
+                    $postObj.insertBefore(".main-content .pagination");
 
-        $(".main-content").prepend($postObj);
-    });
+                    //$(".main-content").append($postObj);
+                }
+            }
+        });
+
+    // $.get("/api/post/1", {}, function(result){
+    //     let $postObj = $(`
+    //     <article id="${result.data.id}" class="post">
+    
+    //     <div class="post-head">
+    //         <h1 class="post-title"><a href="/post/show?id=${result.data.id}">${result.data.title}</a></h1>
+    //         <div class="post-meta">
+    //             <span class="author">作者：<a href="/author/wangsai/">王赛</a></span> &bull;
+    //             <time class="post-date" datetime="2017年7月13日星期四中午12点12分" title="2017年7月13日星期四中午12点12分">${result.data.date}</time>
+    //         </div>
+    //     </div>
+    //     <div class="post-content">
+    //         ${result.data.content}
+    //     </div>
+    //     <div class="post-permalink">
+    //         <a href="/post/show?id=${result.data.id}" class="btn btn-default">阅读全文</a>
+    //     </div>
+    
+    //     <footer class="post-footer clearfix">
+    //         <div class="pull-left tag-list">
+    //             <i class="fa fa-folder-open-o"></i>
+                
+    //         </div>
+    //         <div class="pull-right share">
+    //         </div>
+    //     </footer>
+    // </article>`);
+    //     console.log(result);
+
+    //     $(".main-content").prepend($postObj);
+    // });
     
 }
 
@@ -78,6 +94,6 @@ function getCates() {
 
 $(function(){
     getCates();
-    addPost();
+    getPosts();
     
 })

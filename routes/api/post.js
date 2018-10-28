@@ -53,8 +53,8 @@ router.post('/deletePost/:id', function(req, res, next){
 
 //获取文章分页列表
 router.post('/postList', function(req, res, next){
-    let {id} = req.body;    //因为find中where不允许多余的字段，所以先过滤一下
-    Post.searchListAndCount({id}, 0, 2).then(function(result){
+    let {offset, limit} = req.body;    //因为find中where不允许多余的字段，所以先过滤一下
+    Post.searchListAndCount({}, offset, limit).then(function(result){
         res.jsonp({status: 0, message: '获取文章分页列表成功', total: result.count, data: result.rows})
     })
 })
