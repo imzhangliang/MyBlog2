@@ -14,8 +14,20 @@ function getCates() {
     })
 }
 
+//获取标签
+function getTags() {
+    $.post('/api/label/labelList', {}, function(result){
+        let html = '';
+        for (let i = 0; i < result.data.length; i++) {
+            html += `<a href="#">${result.data[i].name}</a>\n`;
+        }
+        $("#tags .tag-cloud").html(html);
+    });    
+}
+
 $(function(){
     getCates();
+    getTags();
 
     let id = $("article.post").attr("id");
 

@@ -51,11 +51,10 @@ router.post('/deleteLabel/:id', function(req, res, next){
     })
 })
 
-//获取标签分页列表
+//获取标签列表
 router.post('/labelList', function(req, res, next){
-    let {id} = req.body;    //因为find中where不允许多余的字段，所以先过滤一下
-    Label.searchListAndCount({id}, 0, 2).then(function(result){
-        res.jsonp({status: 0, message: '获取标签分页列表成功', total: result.count, data: result.rows})
+    Label.searchList({}).then(function(result){
+        res.jsonp({status: 0, message: '获取标签列表成功', data: result})
     })
 })
 
