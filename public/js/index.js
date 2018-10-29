@@ -1,14 +1,26 @@
 
 //获取文章
 function getPosts() {
+    let $pages = $("#pages");
+    //获取分页信息
+    let page = +($("#pages .page-number").data("page"));
+    let limit = $("#pages .page-number").data("limit");
+    let offset = (page-1)*limit;
+
+    $(".main-content article").remove();
 
     $.ajax({
             url: "/api/post/postList",
-            data:'{"offset": 0, "limit":10}',
+            data:`{"offset": ${offset}, "limit": ${limit}}`,
             contentType : 'application/json',
             type : 'POST',
             success:function(result){
                 console.log(result);
+
+                let pageCount = Math.ceil(result.total/limit);
+                $("#pages .page-number").data("total", result.total);
+                $("#pages .page-number").data("pageCount", pageCount);
+                $("#pages .page-number").html(`第 ${page} 页 &frasl; 共 ${pageCount} 页`)
 
                 for (let post of result.data) {
                     let $postObj = $(`
@@ -73,8 +85,19 @@ function getCates() {
     })
 }
 
+function nextPageAction() {
+    $("#pages .older-posts").click(function(){
+        $pageNumber = $(this).parent().find(".page-number");
+        let page = $pageNumber.data("page") + 1;
+        console.log(page);
+        $pageNumber.data("page", page);
+        getPosts();
+    })
+}
+
 $(function(){
     getCates();
     getPosts();
     getTags();
+    nextPageAction();
 })
