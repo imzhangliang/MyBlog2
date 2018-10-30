@@ -7,6 +7,14 @@ function getPosts() {
     let limit = $("#pages .page-number").data("limit");
     let offset = (page-1)*limit;
 
+    if (page <= 1) {
+        $(".prevPage").hide();
+    } else {
+        $(".prevPage").show();
+    }
+
+    if (page )
+
     $(".main-content article").remove();
 
     $.ajax({
@@ -18,6 +26,12 @@ function getPosts() {
                 console.log(result);
 
                 let pageCount = Math.ceil(result.total/limit);
+                if (page >= pageCount) {
+                    $(".nextPage").hide();
+                } else {
+                    $(".nextPage").show();
+                }
+
                 $("#pages .page-number").data("total", result.total);
                 $("#pages .page-number").data("pageCount", pageCount);
                 $("#pages .page-number").html(`第 ${page} 页 &frasl; 共 ${pageCount} 页`)
@@ -85,19 +99,38 @@ function getCates() {
     })
 }
 
-function nextPageAction() {
-    $("#pages .older-posts").click(function(){
+//设置翻页的动作
+function bindPageAction() {
+    $("#pages .nextPage").click(function(){
         $pageNumber = $(this).parent().find(".page-number");
+        
         let page = $pageNumber.data("page") + 1;
         console.log(page);
-        $pageNumber.data("page", page);
+        if (page <= $pageNumber.data("pageCount")) {
+            $pageNumber.data("page", page);
+        }
         getPosts();
-    })
+
+        return false;
+    });
+
+    $("#pages .prevPage").click(function(){
+        $pageNumber = $(this).parent().find(".page-number");
+        
+        let page = $pageNumber.data("page") - 1;
+        console.log(page);
+        if (page >= 1) {
+            $pageNumber.data("page", page);
+        }
+        getPosts();
+
+        return false;
+    });
 }
 
 $(function(){
     getCates();
     getPosts();
     getTags();
-    nextPageAction();
+    bindPageAction();
 })
