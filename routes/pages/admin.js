@@ -9,4 +9,9 @@ router.get('/', function(req, res, next) {
     res.render("admin/index");
 });
 
+//文章分类管理
+router.get('/cate', function(req, res, next){
+    res.render("admin/cate");
+})
+
 module.exports = router;
