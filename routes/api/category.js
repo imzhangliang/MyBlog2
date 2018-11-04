@@ -51,10 +51,10 @@ router.post('/deleteCategory/:id', function(req, res, next){
     })
 })
 
-//获取文章分类
+//获取文章分类列表
 router.post('/categoryList', function(req, res, next){
     Category.searchList().then(function(data){
-        res.jsonp({status: 0, message: '获取文章分类成功', data: data})
+        res.jsonp({status: 0, message: '获取文章分类列表成功', data: data})
     });
 
 })
