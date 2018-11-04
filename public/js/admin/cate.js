@@ -2,6 +2,24 @@ $(function(){
     var $cateAdminTable = $('#cateAdminTable');
     var editRowIndex = -1;
 
+
+    //新增文章分类
+    $(".addCate").click(function(){
+        let name = $(this).parent().find("input").val();
+        
+        $.post('/api/category/addCategory', {name}, function(data){
+            if (data.status == 0) {
+                console.log("OK")
+                refreshTable();
+                editRowIndex = -1;
+            } else {
+                console.log("NO");
+                refreshTable();
+                editRowIndex = -1;
+            }
+        })
+    })
+
     // 还原某一行成原始状态
     function restoreRow(rowIndex) {
         let rows = $cateAdminTable.bootstrapTable('getData', {useCurrentPage:true});
@@ -30,6 +48,14 @@ $(function(){
         }
 
     }
+
+
+
+    //刷新表格
+    function refreshTable() {
+        $cateAdminTable.bootstrapTable("refresh");
+    }
+    
 
     $('#cateAdminTable').bootstrapTable({
         url: '/api/category/categoryList',        //ajax数据url
@@ -95,18 +121,26 @@ $(function(){
                 }
             },
             events: {
-                'click .edit': function (e, value, row, index){
+                'click .edit': function (e, value, row, index){     //进入编辑模式
                     editRow(index);
                 },
-                'click .editFinish': function(e, value, row, index){
+                'click .editFinish': function(e, value, row, index){    //完成编辑
+                    let id = row.id;
                     let name = $(this).parent().parent().find(".cateName input").val();
-                    console.log(name);
+                    $.post('/api/category/editCategory', {id, name}, function(data){
+                        if (data.status == 0) {
+                            console.log("OK")
+                            refreshTable();
+                            editRowIndex = -1;
+                        } else {
+                            console.log("NO");
+                            refreshTable();
+                            editRowIndex = -1;
+                        }
+                    })
                 }
             }
         }],
     });
 
-    $(".edit").click(function(){
-        alert("OK");
-    })
 })
