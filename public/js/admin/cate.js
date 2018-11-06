@@ -1,6 +1,6 @@
 $(function(){
     var $cateAdminTable = $('#cateAdminTable');
-    var editRowIndex = -1;
+    var editRowIndex = -1;  //当前编辑行
 
 
     //新增文章分类
@@ -20,6 +20,7 @@ $(function(){
         })
     })
 
+
     // 还原某一行成原始状态
     function restoreRow(rowIndex) {
         let rows = $cateAdminTable.bootstrapTable('getData', {useCurrentPage:true});
@@ -27,6 +28,9 @@ $(function(){
         rows[rowIndex].name = $(rows[rowIndex].name).val() || rows[rowIndex].name;
         rows[rowIndex].op = null;
         $cateAdminTable.bootstrapTable('updateRow', {index:rowIndex, row:rows[rowIndex]});
+        if (editRowIndex == rowIndex) {
+            editRowIndex = -1;  //当前编辑行也还原
+        }
     }
 
     //rowIndex行进入编辑模式
@@ -86,10 +90,6 @@ $(function(){
         },
         columns: [
         {
-            title: '',
-            radio: true     //显示radio表单
-        },
-        {
             field: 'id',
             title: 'ID',
             sortable: true      //添加列排序功能
@@ -98,10 +98,17 @@ $(function(){
             field: 'name',
             title: '分类名称',
             class: 'cateName',
+            width: 300,
             formatter: function (value, row, index) {   //自定义表格格式
                 return value;
                 return `<input type="text" name="name" value="${value}" />`;
                 return value;
+            },
+            rowStyle: function (row, index) {
+                return {
+                  classes: '',
+                  css: {}
+                };
             },
             sortable: true
         }, 
@@ -115,9 +122,9 @@ $(function(){
             title: '操作',
             formatter: function (value, row, index) {   //自定义表格格式
                 if (value == 'edit') {
-                    return `<a class="editFinish" href="#"><i class="fa fa-check-square" aria-hidden="true"></i>提交</a>`;
+                    return `<a class="editFinish" href="#"><i class="fa fa-check-square" aria-hidden="true"></i></a> <a class="cancelEdit" href="#"><i class="fa fa-redo-alt" aria-hidden="true"></i></a>`;
                 } else {
-                    return `<a class="edit" href="#"><i class="fa fa-edit" aria-hidden="true"></i>编辑</a> <a class="delete" href="#">删除</a>`;
+                    return `<a class="edit" href="#"><i class="fa fa-edit" aria-hidden="true"></i></a> <a class="delete" href="#"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>`;
                 }
             },
             events: {
@@ -138,6 +145,19 @@ $(function(){
                             editRowIndex = -1;
                         }
                     })
+                },
+                'click .cancelEdit': function(e, value, row, index){    //撤销编辑\
+                    restoreRow(index);
+                },
+                'click .delete': function(e, value, row, index){    //删除文章分类
+                    $.post(`/api/category/deleteCategory/${row.id}`, {}, function(data){
+                        if (data.status == 0) {
+                            console.log("OK")
+                            refreshTable();
+                        } else {
+                            console.log("NO");
+                        }
+                    });
                 }
             }
         }],
