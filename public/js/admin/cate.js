@@ -66,7 +66,7 @@ $(function(){
         method: 'POST',
         pagination: true,       //是否分页
         paginationLoop: false,      //分页是否循环，即:最后1页下一页是第1页；第一页上一页是最后1页。
-        height: 570,        //列表高度
+        height: 480,        //列表高度
         striped: true,  //条纹格子
         clickToSelect: true,    //点击行的时候自动选择radio或checkbox
         queryParams: function (params) { //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数
@@ -98,7 +98,7 @@ $(function(){
             field: 'name',
             title: '分类名称',
             class: 'cateName',
-            width: 300,
+            width: '300px',
             formatter: function (value, row, index) {   //自定义表格格式
                 return value;
                 return `<input type="text" name="name" value="${value}" />`;
