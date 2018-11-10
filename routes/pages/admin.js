@@ -14,4 +14,9 @@ router.get('/cate', function(req, res, next){
     res.render("admin/cate");
 })
 
+//文章管理
+router.get('/post', function(req, res, next){
+    res.render("admin/post");
+})
+
 module.exports = router;
