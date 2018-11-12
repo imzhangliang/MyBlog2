@@ -1,6 +1,15 @@
 $(function(){
     var $table = $('#postAdminTable');
 
+    //增加
+    $(".addPost").click(function(){
+        layer.open({
+            type: 2,
+            content: '/admin/addPost',
+            title: '添加文章',
+            area: ['80%', '80%']
+        })
+    })
 
     //删除
     $(".deletePost").click(function(){

@@ -19,4 +19,10 @@ router.get('/post', function(req, res, next){
     res.render("admin/post");
 })
 
+//文章管理
+router.get('/addPost', function(req, res, next){
+    res.render("admin/addPost");
+})
+
+
 module.exports = router;
