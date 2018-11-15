@@ -145,6 +145,30 @@ $(function(){
                 },
                 sortable: true
             },
+            {
+                field: 'createdAt',
+                title: '创建时间',
+                sortable: true,      
+                cellStyle: function (row, index) {
+                    return {
+                        classes: '',
+                        css: {}
+                    };
+                },
+                sortable: true
+            },
+            {
+                field: 'updatedAt',
+                title: '更新时间',
+                sortable: true,     
+                cellStyle: function (row, index) {
+                    return {
+                        classes: '',
+                        css: {}
+                    };
+                },
+                sortable: true
+            },
         ],
     });
 
