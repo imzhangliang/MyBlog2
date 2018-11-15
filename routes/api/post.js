@@ -5,6 +5,8 @@ var express = require('express');
 var router = express.Router();
 const models = require('../../models');
 const Post = models.post;
+const moment = require('moment');
+
 
 
 //获取文章
@@ -20,6 +22,7 @@ router.get('/:id', function(req, res, next){
 
 //新增文章
 router.post('/addPost', function(req, res, next){
+    req.body.date = moment();
     Post.add(req.body).then(function(post){
         if (post) {
             res.jsonp({status: 0, message: '新增文章成功', data:post})
