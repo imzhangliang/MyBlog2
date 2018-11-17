@@ -1,6 +1,26 @@
 $(function(){
     var $table = $('#postAdminTable');
 
+    function getOneSelectionRow() {
+        let selects =$table.bootstrapTable('getAllSelections');
+        console.log(selects);
+
+        if (selects.length == 0) {
+            layer.msg("你未选中任何条目!", {icon: 2});
+            return null;
+        } 
+        else if(selects.length > 1) 
+        {
+            layer.msg("你选中了多条数据！", {icon: 2});
+            return null;
+        } 
+        else 
+        {
+            return selects[0];
+        }
+
+    }
+
     //增加
     $(".addPost").click(function(){
         layer.open({
@@ -9,6 +29,20 @@ $(function(){
             title: '添加文章',
             area: ['80%', '80%']
         })
+    })
+
+    //编辑
+    $(".editPost").click(function(){
+        let row = getOneSelectionRow();
+        if (row) {
+            layer.open({
+                type: 2,
+                content: '/admin/editPost' + row.id,
+                title: '编辑文章',
+                area: ['80%', '80%']
+            })
+        }
+
     })
 
     //删除

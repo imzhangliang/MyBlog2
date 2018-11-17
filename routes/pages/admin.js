@@ -19,9 +19,14 @@ router.get('/post', function(req, res, next){
     res.render("admin/post");
 })
 
-//文章管理
+//增加管理
 router.get('/addPost', function(req, res, next){
     res.render("admin/addPost");
+})
+
+//编辑文章
+router.get('/editPost', function(req, res, next){
+    res.render("admin/editPost");
 })
 
 
