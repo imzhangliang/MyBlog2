@@ -17,12 +17,12 @@ router.get('/cate', function(req, res, next){
 
 //文章管理
 router.get('/post', function(req, res, next){
-    res.render("admin/post");
+    res.render("admin/post/post");
 })
 
 //增加管理
 router.get('/addPost', function(req, res, next){
-    res.render("admin/addPost");
+    res.render("admin/post/addPost");
 })
 
 //编辑文章
@@ -33,7 +33,7 @@ router.get('/editPost', function(req, res, next){
         console.log(id, data.dataValues);
         if (data ) {
             console.log(1);
-            res.render("admin/editPost", data.dataValues);
+            res.render("admin/post/editPost", data.dataValues);
         } else {
             res.send(404)
         }
