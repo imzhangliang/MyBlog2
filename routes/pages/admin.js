@@ -3,7 +3,8 @@
 
 var express = require('express');
 var router = express.Router();
-
+var models = require('../../models');
+var Post = models.post;
 
 router.get('/', function(req, res, next) {
     res.render("admin/index");
@@ -26,7 +27,19 @@ router.get('/addPost', function(req, res, next){
 
 //编辑文章
 router.get('/editPost', function(req, res, next){
-    res.render("admin/editPost");
+    let id = req.query.id;
+    let viewData = {}
+    return Post.get(id).then(function(data){
+        console.log(id, data.dataValues);
+        if (data ) {
+            console.log(1);
+            res.render("admin/editPost", data.dataValues);
+        } else {
+            res.send(404)
+        }
+    })    
+
+    
 })
 
 

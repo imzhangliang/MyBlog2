@@ -37,7 +37,7 @@ $(function(){
         if (row) {
             layer.open({
                 type: 2,
-                content: '/admin/editPost' + row.id,
+                content: '/admin/editPost?id=' + row.id,
                 title: '编辑文章',
                 area: ['80%', '80%']
             })
