@@ -1,0 +1,21 @@
+
+<%- include('header') -%>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1>标签管理</h1>
+                <div class="form-group form-inline">
+                    <input type="text" name="name" placeholder="分类名称" class="form-control" />
+                    <button type="button" class="btn btn-default addLabel"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+                <table id="labelAdminTable"></table>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    
+<%- include('footer', {customJsPath: '/js/admin/label.js'}) -%>

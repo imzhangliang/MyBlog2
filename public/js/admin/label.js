@@ -7,15 +7,15 @@ require(['/js/libs/require.config.js'], function(){
           })
 
         $(function(){
-            var $cateAdminTable = $('#cateAdminTable');
+            var $labelAdminTable = $('#labelAdminTable');
             var editRowIndex = -1;  //当前编辑行
         
         
-            //新增文章分类
-            $(".addCate").click(function(){
+            //新增标签
+            $(".addLabel").click(function(){
                 let name = $(this).parent().find("input").val();
                 
-                $.post('/api/category/addCategory', {name}, function(data){
+                $.post('/api/label/addLabel', {name}, function(data){
                     if (data.status == 0) {
                         console.log("OK")
                         refreshTable();
@@ -31,11 +31,11 @@ require(['/js/libs/require.config.js'], function(){
         
             // 还原某一行成原始状态
             function restoreRow(rowIndex) {
-                let rows = $cateAdminTable.bootstrapTable('getData', {useCurrentPage:true});
+                let rows = $labelAdminTable.bootstrapTable('getData', {useCurrentPage:true});
                 console.log('restoring', rows[rowIndex]);
                 rows[rowIndex].name = $(rows[rowIndex].name).val() || rows[rowIndex].name;
                 rows[rowIndex].op = null;
-                $cateAdminTable.bootstrapTable('updateRow', {index:rowIndex, row:rows[rowIndex]});
+                $labelAdminTable.bootstrapTable('updateRow', {index:rowIndex, row:rows[rowIndex]});
                 if (editRowIndex == rowIndex) {
                     editRowIndex = -1;  //当前编辑行也还原
                 }
@@ -43,7 +43,7 @@ require(['/js/libs/require.config.js'], function(){
         
             //rowIndex行进入编辑模式
             function editRow(rowIndex) {
-                let rows = $cateAdminTable.bootstrapTable('getData', {useCurrentPage:true});
+                let rows = $labelAdminTable.bootstrapTable('getData', {useCurrentPage:true});
         
                 if (rowIndex != editRowIndex) {
                     if (editRowIndex >= 0 && editRowIndex < rows.length) {
@@ -53,7 +53,7 @@ require(['/js/libs/require.config.js'], function(){
                     if (rowIndex >= 0 && rowIndex < rows.length) {
                         rows[rowIndex].name = `<input type="text" name="name" value="${rows[rowIndex].name}" />`;
                         rows[rowIndex].op = "edit";
-                        $cateAdminTable.bootstrapTable('updateRow', {index:rowIndex, row:rows[rowIndex]});
+                        $labelAdminTable.bootstrapTable('updateRow', {index:rowIndex, row:rows[rowIndex]});
             
                         editRowIndex = rowIndex;
                     }
@@ -65,12 +65,12 @@ require(['/js/libs/require.config.js'], function(){
         
             //刷新表格
             function refreshTable() {
-                $cateAdminTable.bootstrapTable("refresh");
+                $labelAdminTable.bootstrapTable("refresh");
             }
             
         
-            $('#cateAdminTable').bootstrapTable({
-                url: '/api/category/categoryList',        //ajax数据url
+            $('#labelAdminTable').bootstrapTable({
+                url: '/api/label/labelList',        //ajax数据url
                 method: 'POST',
                 pagination: true,       //是否分页
                 paginationLoop: false,      //分页是否循环，即:最后1页下一页是第1页；第一页上一页是最后1页。
@@ -100,12 +100,13 @@ require(['/js/libs/require.config.js'], function(){
                 {
                     field: 'id',
                     title: 'ID',
-                    sortable: true      //添加列排序功能
+                    sortable: true,      //添加列排序功能
+                    width: '100px'
                 }, 
                 {
                     field: 'name',
-                    title: '分类名称',
-                    class: 'cateName',
+                    title: '标签名称',
+                    class: 'labelName',
                     width: '300px',
                     formatter: function (value, row, index) {   //自定义表格格式
                         return value;
@@ -120,11 +121,6 @@ require(['/js/libs/require.config.js'], function(){
                     },
                     sortable: true
                 }, 
-                {
-                    field: 'postCount',
-                    title: '文章总数',
-                    sortable: true
-                },       
                 {
                     field: 'op',
                     title: '操作',
@@ -141,8 +137,8 @@ require(['/js/libs/require.config.js'], function(){
                         },
                         'click .editFinish': function(e, value, row, index){    //完成编辑
                             let id = row.id;
-                            let name = $(this).parent().parent().find(".cateName input").val();
-                            $.post('/api/category/editCategory', {id, name}, function(data){
+                            let name = $(this).parent().parent().find(".labelName input").val();
+                            $.post('/api/label/editLabel', {id, name}, function(data){
                                 if (data.status == 0) {
                                     console.log("OK")
                                     refreshTable();
@@ -158,16 +154,17 @@ require(['/js/libs/require.config.js'], function(){
                             restoreRow(index);
                         },
                         'click .delete': function(e, value, row, index){    //删除文章分类
+
+
                             let message = `你准备删除以下条目吗:<br> ${row.name}`;
             
                             layer.confirm(message, {icon: 3}, function(){
-                                $.post(`/api/category/deleteCategory/${row.id}`, {}, function(data){
+
+                                $.post(`/api/label/deleteLabel/${row.id}`, {}, function(data){
                                     layer.msg(data.message);
                                     refreshTable();
                                 });
-                      
                             })
-
 
                         }
                     }

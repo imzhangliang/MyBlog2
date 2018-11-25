@@ -43,4 +43,10 @@ router.get('/editPost', function(req, res, next){
 })
 
 
+//标签管理
+router.get('/label', function(req, res, next){
+    res.render("admin/label");
+})
+
+
 module.exports = router;
