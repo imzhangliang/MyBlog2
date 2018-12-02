@@ -54,7 +54,7 @@ router.post('/deleteUser/:id', function(req, res, next){
 //获取用户分页列表
 router.post('/userList', function(req, res, next){
     let {id} = req.body;    //因为find中where不允许多余的字段，所以先过滤一下
-    User.searchListAndCount({id}, 0, 2).then(function(result){
+    User.searchListAndCount({id, ok:'123'}, 0, 2).then(function(result){
         res.jsonp({status: 0, message: '获取用户分页列表成功', total: result.count, data: result.rows})
     })
 })

@@ -10,22 +10,22 @@ router.get('/', function(req, res, next) {
     res.render("admin/index");
 });
 
-//文章分类管理
+//文章分类管理页面
 router.get('/cate', function(req, res, next){
     res.render("admin/cate");
 })
 
-//文章管理
+//文章管理页面
 router.get('/post', function(req, res, next){
     res.render("admin/post/post");
 })
 
-//增加管理
+//增加管理页面
 router.get('/addPost', function(req, res, next){
     res.render("admin/post/addPost");
 })
 
-//编辑文章
+//编辑文章页面
 router.get('/editPost', function(req, res, next){
     let id = req.query.id;
     let viewData = {}
@@ -43,9 +43,15 @@ router.get('/editPost', function(req, res, next){
 })
 
 
-//标签管理
+//标签管理页面
 router.get('/label', function(req, res, next){
     res.render("admin/label");
+})
+
+
+//用户管理页面
+router.get('/user', function(req, res, next){
+    res.render("admin/user/user")
 })
 
 
