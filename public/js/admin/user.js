@@ -172,8 +172,23 @@ require(['/js/libs/require.config.js'], function(){
                         },
                     },
                     {
-                        field: 'title',
-                        title: '标题',
+                        field: 'username',
+                        title: '用户名',
+                        width: '300px',
+                        formatter: function (value, row, index) {  
+                            return value;
+                        },
+                        cellStyle: function (row, index) {
+                            return {
+                                classes: '',
+                                css: {}
+                            };
+                        },
+                        sortable: true
+                    },
+                    {
+                        field: 'nickname',
+                        title: '昵称',
                         width: '300px',
                         formatter: function (value, row, index) {  
                             return value;

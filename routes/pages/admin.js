@@ -20,7 +20,7 @@ router.get('/post', function(req, res, next){
     res.render("admin/post/post");
 })
 
-//增加管理页面
+//增加文章页面
 router.get('/addPost', function(req, res, next){
     res.render("admin/post/addPost");
 })
@@ -52,6 +52,28 @@ router.get('/label', function(req, res, next){
 //用户管理页面
 router.get('/user', function(req, res, next){
     res.render("admin/user/user")
+})
+
+//增加用户页面
+router.get('/addUser', function(req, res, next){
+    res.render("admin/user/addUser");
+})
+
+//编辑用户页面
+router.get('/editUser', function(req, res, next){
+    let id = req.query.id;
+    let viewData = {}
+    return Post.get(id).then(function(data){
+        console.log(id, data.dataValues);
+        if (data ) {
+            console.log(1);
+            res.render("admin/user/editUser", data.dataValues);
+        } else {
+            res.send(404)
+        }
+    })    
+
+    
 })
 
 
