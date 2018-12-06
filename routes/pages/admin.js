@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../../models');
 var Post = models.post;
+var User = models.user;
 
 router.get('/', function(req, res, next) {
     res.render("admin/index");
@@ -63,7 +64,7 @@ router.get('/addUser', function(req, res, next){
 router.get('/editUser', function(req, res, next){
     let id = req.query.id;
     let viewData = {}
-    return Post.get(id).then(function(data){
+    return User.get(id).then(function(data){
         console.log(id, data.dataValues);
         if (data ) {
             console.log(1);

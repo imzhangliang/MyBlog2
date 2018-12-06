@@ -9,7 +9,7 @@ require(['/js/libs/require.config.js'], function(){
             $("#submit").click(function(e){
                 e.preventDefault();
                 let data = $("#addUserForm").serialize();
-        
+                console.log(data);
                 $.post('/api/user/addUser', data, function(result){
                     console.log(result);
                     if (result.status == 0) {

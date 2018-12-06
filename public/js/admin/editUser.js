@@ -7,7 +7,7 @@ require(['/js/libs/require.config.js'], function(){
         $(function(){
             $("#submit").click(function(e){
                 e.preventDefault();
-                let data = $("#addUserForm").serialize();
+                let data = $("#editUserForm").serialize();
         
                 console.log(data);
         

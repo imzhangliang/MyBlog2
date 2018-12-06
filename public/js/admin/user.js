@@ -33,8 +33,8 @@ require(['/js/libs/require.config.js'], function(){
                 layer.open({
                     type: 2,
                     content: '/admin/addUser',
-                    title: '添加文章',
-                    area: ['80%', '80%']
+                    title: '添加用户',
+                    area: ['450px', '80%']
                 })
             })
         
@@ -45,8 +45,8 @@ require(['/js/libs/require.config.js'], function(){
                     layer.open({
                         type: 2,
                         content: '/admin/editUser?id=' + row.id,
-                        title: '编辑文章',
-                        area: ['80%', '80%']
+                        title: '编辑用户',
+                        area: ['450px', '80%']
                     })
                 }
         
