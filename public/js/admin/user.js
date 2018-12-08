@@ -62,16 +62,16 @@ require(['/js/libs/require.config.js'], function(){
                 else if (rows.length == 1) {
                     let rowsCount = rows.length;
         
-                    let titles = '';
+                    let usernames = '';
                     for(let i = 0; i < rows.length; i++) {
                         let item = rows[i];
-                        titles += item.title + '<br>\n';
+                        usernames += item.username + '<br>\n';
                         if (i >= 3) {
                             titles += '...<br>';
                             break;
                         }
                     }
-                    let message = `你准备删除以下条目吗:<br> ${titles}`;
+                    let message = `你准备删除以下条目吗:<br> ${usernames}`;
         
                     layer.confirm(message, {icon: 3}, function(){
                         $.post(`/api/user/deleteUser/${rows[0].id}`, {}, function(data){

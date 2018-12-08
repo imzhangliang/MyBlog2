@@ -1,6 +1,7 @@
 'use strict';
 const baseModel = require('./base/baseModel');  //基类模型用于继承
 
+
 // ****** 用户实体 ******
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -27,6 +28,20 @@ module.exports = (sequelize, DataTypes) => {
 
   //继承基类的一些方法
   baseModel(User);
+
+  User.searchList = function (where, offset, limit) {
+    const Role = require('../models').role;
+    return User.findAll({
+        where: where,
+        include: [
+          {model: Role}
+        ],
+        limit: limit,
+        offset: offset
+    }).then(function (objs) {
+        return objs;
+    })
+  }
 
   return User;
 };
