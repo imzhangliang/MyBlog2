@@ -1,60 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/css/libs/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/css/libs/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <div id="wrapper" class="toggled">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        管理后台
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/cate">文章分类管理</a>
-                </li>
-                <li>
-                    <a href="/admin/post">文章管理</a>
-                </li>
-                <li>
-                    <a href="/admin/label">标签管理</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
+<%- include('header') -%>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -67,21 +11,4 @@
         </div>
         <!-- /#page-content-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/js/libs/jquery.min.js"></script>
-    <script src="/js/libs/bootstrap.min.js"></script>
-
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-
-</body>
-
-</html>
+<%- include('footer', {customJsPath: '/js/admin/index.js'}) -%>
