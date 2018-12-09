@@ -6,6 +6,7 @@ var router = express.Router();
 var models = require('../../models');
 var Post = models.post;
 var User = models.user;
+var Role = models.role;
 
 router.get('/', function(req, res, next) {
     res.render("admin/index");
@@ -39,8 +40,6 @@ router.get('/editPost', function(req, res, next){
             res.send(404)
         }
     })    
-
-    
 })
 
 
@@ -65,7 +64,6 @@ router.get('/editUser', function(req, res, next){
     let id = req.query.id;
     let viewData = {}
     return User.get(id).then(function(data){
-        console.log(id, data.dataValues);
         if (data ) {
             console.log(1);
             res.render("admin/user/editUser", data.dataValues);
@@ -73,9 +71,33 @@ router.get('/editUser', function(req, res, next){
             res.send(404)
         }
     })    
-
-    
 })
+
+
+//角色管理页面
+router.get('/role', function(req, res, next){
+    res.render("admin/role/role")
+})
+
+//增加角色页面
+router.get('/addRole', function(req, res, next){
+    res.render("admin/role/addRole");
+})
+
+//编辑角色页面
+router.get('/editRole', function(req, res, next){
+    let id = req.query.id;
+    let viewData = {}
+    return Role.get(id).then(function(data){
+        if (data ) {
+            console.log(1);
+            res.render("admin/role/editRole", data.dataValues);
+        } else {
+            res.send(404)
+        }
+    })    
+})
+
 
 
 module.exports = router;

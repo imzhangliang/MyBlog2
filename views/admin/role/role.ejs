@@ -1,0 +1,19 @@
+<%- include('../header') -%>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1>角色管理</h1>
+                <div class="form-group form-inline">
+                    <button type="button" class="btn btn-default addRole"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-default editRole"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-default deleteRole"><i class="fa fa-trash-alt" aria-hidden="true"></i></button>
+
+                </div>
+                <table id="roleAdminTable"></table>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+<%- include('../footer', {customJsPath: '/js/admin/role.js'}) -%>
