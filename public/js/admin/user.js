@@ -202,6 +202,20 @@ require(['/js/libs/require.config.js'], function(){
                         sortable: true
                     },
                     {
+                        field: 'roles',
+                        title: '角色',
+                        width: '300px',
+                        formatter: function (value, row, index) {  
+                            return value[0] ? value[0].name : '';
+                        },
+                        cellStyle: function (row, index) {
+                            return {
+                                classes: '',
+                                css: {}
+                            };
+                        },
+                    },
+                    {
                         field: 'createdAt',
                         title: '创建时间',
                         sortable: true,      

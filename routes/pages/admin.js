@@ -56,7 +56,9 @@ router.get('/user', function(req, res, next){
 
 //增加用户页面
 router.get('/addUser', function(req, res, next){
-    res.render("admin/user/addUser");
+    return Role.searchList().then(function(roles){
+        res.render("admin/user/addUser", {globalRoles:roles});
+    })
 })
 
 //编辑用户页面
@@ -65,8 +67,11 @@ router.get('/editUser', function(req, res, next){
     let viewData = {}
     return User.get(id).then(function(data){
         if (data ) {
-            console.log(1);
-            res.render("admin/user/editUser", data.dataValues);
+            return Role.searchList().then(function(roles){
+                data.dataValues.globalRoles = roles;
+                data.dataValues.roleId = data.dataValues.roles[0] ? data.dataValues.roles[0].id : null;
+                res.render("admin/user/editUser", data.dataValues);
+            })
         } else {
             res.send(404)
         }
